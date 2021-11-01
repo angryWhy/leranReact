@@ -12,26 +12,18 @@
 <body>
     <div id="app"></div>
     <script type="text/babel">
-    function getSizeImg(url,size){
-    return url+`?param=${size}×${size}`
-
-} 
     class App extends React.Component{
         constructor(){
             super();
             this.state={
-                title:"标题",
-                imgUrl:"http://p2.music.126.net/L8IDEWMk_6vyT0asSkPgXw==/109951163990535633.jpg",
-                link:"www.baidu.com",
-                active:true
+                movies:["o","v","p"]
             }
         }
         render(){
-            return(<div><h2>{this.state.message}</h2><img src={getSizeImg(this.state.imgUrl,140)}/>
-                <a  className="sty" href={this.state.link} target="_blank">百度一下</a>
-                <div className={"sty"+this.state.active?"active":''}>div元素动态绑定</div>
-                <div style={{color:"red"}}>内联元素绑定</div>
-                    </div>)
+            return(<div><ul>{this.state.movies.map((item,index)=>{ return <li onClick={(e)=>{this.btnClick(item,index,e)}}>{item}</li>})}</ul></div>)
+        }
+        btnClick(item,index,e){
+            console.log(item,index,e);
         }
     }
     ReactDOM.render(<App/>,document.getElementById("app"));
