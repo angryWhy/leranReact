@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"crossorigin></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                isFlag:true
+            }
+        }
+        btnClick(){
+            this.setState({
+                isFlag:!this.state.isFlag
+            })
+        }
+        render(){
+            let message=null;
+            const displayValue=this.state.isFlag?"block":"none"
+            if(this.state.isFlag){
+                message=<h2>提示信息</h2>
+            }
+            else{
+                message=<h2>错误信息</h2>
+            }
+            return(<div>
+                {message}
+                {/*立即调用箭头函数方法体里的函数*/}
+                <button onClick={()=>this.btnClick()}>改变</button>
+                <hr/>
+                {/*逻辑与，展示后面的返回*/}
+                <h2>{this.state.isFlag&&"提示信息展示"}</h2>
+                <hr/>
+                <div style={{display:displayValue}}>模拟v-show</div>
+                </div>)
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
