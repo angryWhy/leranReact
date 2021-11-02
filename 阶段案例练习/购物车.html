@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"crossorigin></script>
+    <style>
+        table {
+      border: 1px solid #eee;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #eee;
+      padding: 10px 16px;
+      text-align: center;
+    }
+
+    th {
+      background-color: rgb(168, 164, 164);
+    }
+
+    .count {
+      margin: 0 5px;
+    }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                head:["  ","书籍名称","出版日期","价格","购买数量","操作"],
+                books:[
+                    {id:0,name:"算法导论",date:"2006-9",price:85,count:0},
+                    {id:1,name:"java编程思想",date:"2006-2",price:59,count:0},
+                    {id:2,name:"typescript",date:"2008-10",price:39,count:0},
+                    {id:3,name:"js权威指南",date:"2006-3",price:105,count:0}
+                ],
+                
+            }
+        }
+        changeBookCount(index,count){
+            const newBooks=[...this.state.books];
+            newBooks[index].count+=count;
+            this.setState({
+                books:newBooks
+            })
+
+        }
+        //React设计原则，state数据不可变性
+        //filter，符合条件的留下(true),不符合条件的
+        //假设当前位置为1，filter进行筛选，当位置0与1进行比较
+        rem(index){
+            this.setState({
+          books: this.state.books.filter((item, indey) => index != indey)
+        })
+        }
+        totalPrice(){
+            const Price = this.state.books.reduce((preValue, item) => {
+             return preValue + item.count * item.price;
+            }, 0);
+
+        return filterPrice(Price);
+        }
+        render(){
+            const { head,books }=this.state;
+            return(<div>
+                <table>
+                    <thead><tr>{head.map(item=><th>{item}</th>)}</tr></thead>
+                    <tbody> 
+                        {
+                           books.map((item,index)=>{
+                            return <tr>
+                                <td>{item.id}</td>
+                                <td>{item.name}</td>
+                                <td>{item.date}</td>
+                                {/*<td>{item.price}</td>*/}
+                                <td>{filterPrice(item.price)}</td>
+                                <td>
+                                    <button disabled={item.count<1} onClick={()=> this.changeBookCount(index, -1)}>-</button>
+                                    <span className={'count'}>{item.count}</span>
+                                    <button onClick={()=> this.changeBookCount(index, 1)}>+</button>
+                                </td>
+                                <td><button onClick={()=>{this.rem(index)}}>移除</button></td>
+                                </tr>
+                            })
+                        }
+                    </tbody>
+                </table>
+                <h2>总价格:{this.totalPrice()}</h2>
+                </div>)
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+      function filterPrice(price){
+            return "¥" + price.toFixed(2);
+        }
+    </script>
+</body>
+</html>
