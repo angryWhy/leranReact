@@ -54,29 +54,13 @@
             })
 
         }
-        //React设计原则，state数据不可变性
-        //filter，符合条件的留下(true),不符合条件的
-        //假设当前位置为1，filter进行筛选，当位置0与1进行比较
-        rem(index){
-            this.setState({
-          books: this.state.books.filter((item, indey) => index != indey)
-        })
-        }
-        totalPrice(){
-            const Price = this.state.books.reduce((preValue, item) => {
-             return preValue + item.count * item.price;
-            }, 0);
-
-        return filterPrice(Price);
-        }
-        render(){
-            const { head,books }=this.state;
+        renderBooks(){
             return(<div>
                 <table>
-                    <thead><tr>{head.map(item=><th>{item}</th>)}</tr></thead>
+                    <thead><tr>{this.state.head.map(item=><th>{item}</th>)}</tr></thead>
                     <tbody> 
                         {
-                           books.map((item,index)=>{
+                           this.state.books.map((item,index)=>{
                             return <tr>
                                 <td>{item.id}</td>
                                 <td>{item.name}</td>
@@ -96,6 +80,28 @@
                 </table>
                 <h2>总价格:{this.totalPrice()}</h2>
                 </div>)
+        }
+        renderEmpty(){
+            return <h2>购物车已经清空</h2>
+        }
+        //React设计原则，state数据不可变性
+        //filter，符合条件的留下(true),不符合条件的
+        //假设当前位置为1，filter进行筛选，当位置0与1进行比较
+        rem(index){
+            this.setState({
+          books: this.state.books.filter((item, indey) => index != indey)
+        })
+        }
+        totalPrice(){
+            const Price = this.state.books.reduce((preValue, item) => {
+             return preValue + item.count * item.price;
+            }, 0);
+
+        return filterPrice(Price);
+        }
+        render(){
+            const { head,books }=this.state;
+            return books.length? this.renderBooks():this.renderEmpty();
         }
     }
     ReactDOM.render(<App/>,document.getElementById("app"));
