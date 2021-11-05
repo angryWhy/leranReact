@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./app.css" type="stylesheet">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+    <style>
+        .tab {
+            display: flex;
+            line-height: 44px;
+            height: 44px;
+        }
+
+        .item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .itemactive {
+            color: rgb(25, 0, 248);
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class TabControl extends React.Component {
+            constructor(){
+                super();
+                this.state={
+                    currentIndex:0
+                }
+            }
+            btnClcik(index){
+                console.log(index);
+                this.setState({currentIndex:index})
+            }
+            render() {
+                const { title } = this.props;
+                const {currentIndex}=this.state;
+                return (<div className="tab">{
+                    title.map((item, index)=> <div 
+                    key={index} 
+                    /*加空格否则无法区分*/
+                    className={"item"+ (index === currentIndex? " itemactive":"") }
+                    /*默认传入一个事件对象，必须起别名区分*/
+                    onClick={(e) =>this.btnClcik(index)}>
+                    {item}
+                    </div>)
+                }</div>)
+            }
+        }
+
+
+        //需要导入PropTypes才能使用
+        // TabControl.propTypes={
+        //      title:propTypes.array.isRequired
+        //  }
+        class App extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    currentindex:0
+                }
+            }
+            render() {
+                return (
+                    <div>
+                    <TabControl title={["流行", "精选", "新款"]} />
+                    <h2>{this.state.currentindex}</h2>
+                    </div>)
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+
+</html>

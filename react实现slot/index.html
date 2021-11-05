@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"crossorigin></script>
+    <style>
+        .nav{
+            display: flex;
+            height: 44px;
+        }
+        .left,.right{
+            line-height: 44px;
+            width: 70px;
+            background-color: brown;
+        }
+        .center{
+            flex:1;
+            line-height: 44px;
+            background-color: chartreuse;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class Nav extends React.Component{
+            render(){
+                return(<div className="nav">
+                    <div className="left">{this.props.children[0]}</div>
+                    <div className="center">{this.props.children[1]}</div>
+                    <div className="right">{this.props.children[2]}</div>
+                    {/*
+                    const {left,cneter,right}=this.props.children
+                     <div className="left">{left}</div>
+                    <div className="center">{cneter}</div>
+                    <div className="right">{right}</div>
+                    */}
+                    </div>)
+            }
+        }
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                message:'hello'
+            }
+        }
+        render(){
+            return(<div>
+                <Nav><p>a</p><p>a</p><p>a</p></Nav>
+                <Nav leftsolt={<p>a</p>}
+                    centerslot={<p>a</p>}
+                    centerslot={<p>a</p>}
+                    rightslot={<p>a</p>}/>
+                </div>)
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>

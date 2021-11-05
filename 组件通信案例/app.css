@@ -1,0 +1,12 @@
+.tab{
+    display: flex;
+    line-height: 44px;
+    height: 44px;
+}
+.item{
+    flex:1;
+    text-align: center;
+}
+.itemactive{
+    color: dodgerblue;
+}
