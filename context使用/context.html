@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"crossorigin></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        
+        
+        class Header extends React.Component{
+            render(){
+                console.log(this.context);
+                return(<div>
+                    {this.context.message}
+                   <div> {this.context.level}</div>
+                    </div>)
+            }
+        }
+        const userContext=React.createContext({
+            nick:"name",
+            leve:"999"
+        })
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                message:'hello',
+                le:"112"
+            }
+        }
+        render(){
+            return(<div>
+                <userContext.Provider value={this.state}>
+                <Header/>
+                </userContext.Provider>
+                </div>)
+        }
+    }
+          
+     // 取出context数据
+     Header.contextType = userContext;
+    ReactDOM.render(<App/>,document.getElementById("app"));
+   
+    </script>
+</body>
+</html>

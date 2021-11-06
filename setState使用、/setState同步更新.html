@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    message: 'hello'
+                }
+            }
+            render() {
+                return (<div>
+                    <h2>{this.state.message}</h2>
+                    <button onClick={e => this.btnClick()}>定时器操作</button>
+                    <button id="el">原生事件 </button>
+
+                </div>)
+            }
+            btnClick() {
+                setTimeout(() => {
+                    this.setState({ message: "react" })
+                    console.log(this.state.message);
+                }, 0);
+            }
+            componentDidMount() {
+                document.getElementById("el").addEventListener("click", () => {
+                    this.setState({ message: "el" })
+                    console.log(this.state.message);
+                })
+            }
+        }
+
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+
+</html>
