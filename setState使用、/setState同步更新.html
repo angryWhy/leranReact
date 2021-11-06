@@ -29,12 +29,14 @@
 
                 </div>)
             }
+            //定时器
             btnClick() {
                 setTimeout(() => {
                     this.setState({ message: "react" })
                     console.log(this.state.message);
                 }, 0);
             }
+            //原生操作，挂载载
             componentDidMount() {
                 document.getElementById("el").addEventListener("click", () => {
                     this.setState({ message: "el" })
@@ -42,7 +44,6 @@
                 })
             }
         }
-
         ReactDOM.render(<App />, document.getElementById("app"));
     </script>
 </body>
