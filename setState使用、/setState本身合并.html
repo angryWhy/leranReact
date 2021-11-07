@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"crossorigin></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                message:'hello',
+                count:0
+            }
+        }
+        render(){
+            return(<div><h2>{this.state.message}</h2></div>)
+        }
+        btnClick() {
+                    //进行setState合并，三个操作合并成一个。
+                    // this.setState({ count: this.state.count+1 })
+                    // this.setState({ count: this.state.count+1 })
+                    // this.setState({ count: this.state.count+1 })
+
+                    //跟一个函数里面
+                    this.setState((prevstate,props)=>{
+                        return {
+                            count:prevstate.count+1
+                        }
+                    })
+            }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
