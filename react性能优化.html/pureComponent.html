@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <script src="../react/react.development.js"></script>
+    <script src="../react/babel.min.js"></script>
+    <script src="..//react/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        /*React.PureComponent
+        设置属性ispurecomponent
+        进行构造函数新旧对比和state新旧对比
+        对象是否为空，
+        object.keys，属性的长度，
+        浅层比较，深层浪费性能
+        对函数式组件无法起作用
+        */
+  class Nav extends  React.PureComponent{
+        render(){
+            console.log("Nav，render函数调用");
+            return(<div><button onClick={e=>this.Clcik()}>改变文本</button></div>)
+        }
+        Clcik(){
+            console.log("");
+        }
+    }
+    /*高阶组件memo
+    针对函数render
+    props发生改变的时候才会重新调用
+    */
+   const memoheader=(
+       function header(){
+           return(<div></div>)
+       }
+   )
+
+
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                count:0,
+                message:"这是文本"
+            }
+        }
+        render(){
+            console.log("render函数调用");
+            return(<div><h2>计数器：{this.state.count}</h2>
+                <button onClick={e=>this.btnCLick()}>+1</button>
+                <button onClick={e=>this.btnCLick2()}>文本</button>
+                <Nav/>
+                </div>)
+        }
+        btnCLick(){
+            this.setState({count:this.state.count+1})
+        }
+        btnCLick2(){
+            this.setState({message:"2222"})
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
