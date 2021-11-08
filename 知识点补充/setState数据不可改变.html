@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <script src="../react/react.development.js"></script>
+    <script src="../react/babel.min.js"></script>
+    <script src="..//react/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                count:0,
+                friends:[
+                    {name:"lucy",age:20},
+                    {name:"lily",age:18},
+                    {name:"liming",age:15}
+                ]
+            }
+        }
+        shouldComponentUpdate(newProps,newState){
+            if(this.state.friends!=this.newState){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        btnClick(){
+            //不推荐做法，直接修改原数组
+            // const newData={name:"zhaosi",age:10};
+            // this.state.friends.push(newData);
+            // this.setState({
+            //     friends:this.state.friends
+            // });
+            const newFriends=[...this.state.friends]
+            newFriends.push({name:"fjx",age:18})
+            this.setState({
+                friends:newFriends
+            })
+        }
+        change(index){
+            const newFriends=[...this.state.friends]
+            newFriends[index].age+=1;
+            this.setState({
+                friends:newFriends
+            })
+        }
+        render(){
+            return(<div><h2>好友列表</h2>
+                <ul>{this.state.friends.map((item,index)=><li key={item.name}>
+                    好友姓名:{item.name}---好友年龄：{item.age}<button onClick={e=>this.change(index)}>年龄加1</button>
+                    </li>)}
+                </ul>
+                <button onClick={e=>{this.btnClick()}}> 添加好友</button>
+                </div>)
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
