@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <script src="../react/react.development.js"></script>
+    <script src="../react/babel.min.js"></script>
+    <script src="..//react/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                count:0,
+                userName:""
+            }
+        }
+        handleChange(e){
+            this.setState({
+                userName:e.target.value
+            })
+        }
+        handleSubmit(e){
+            e.preventDefault();
+        }
+        render(){
+            return(<div>
+                <form >
+                   <label htmlFor="username">
+                    {/*受控组件
+                    *onChange监听输入
+                    *通过函数对state数据进行更改
+                    *使用value属性写入state数据
+                    */}
+                    <input type="text" 
+                           id="username" 
+                           onChange={e=>{this.handleChange(e)}} 
+                           value={this.state.userName}
+                           />
+                    </label> 
+                    <div>
+                    <button onClick={e=>{this.handleSubmit(e)}}>提交</button>
+                    </div>
+                    </form>
+                </div>)
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
