@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <script src="../react/react.development.js"></script>
+    <script src="../react/babel.min.js"></script>
+    <script src="..//react/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                count:0
+            }
+        }
+        render(){
+            return(<div>
+                   <ProfileComponent name="111" level="222"/>
+                   <HomeComponent name="222" level="222"/>
+                  </div>)
+        }
+    }
+    class Home extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return(<div>
+                   <h2>
+                    {`名称:${this.props.name}等级:${this.props.level}区域:${this.props.region}`}
+                   </h2>
+                  </div>)
+        }
+    }
+    class Profile extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return(<div>
+                   <h2>
+                    {`名称:${this.props.name}等级:${this.props.level}区域:${this.props.region}`}
+                   </h2>
+                  </div>)
+        }
+    }
+    function enhanceComponent(WarpperComponent){
+        return props=>{
+            return <WarpperComponent {...props} region="中国"/>
+        }
+    }
+    const ProfileComponent=enhanceComponent(Profile);
+    const HomeComponent=enhanceComponent(Home)
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
