@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <script src="../react/react.development.js"></script>
+    <script src="../react/babel.min.js"></script>
+    <script src="..//react/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    function enhanceCpn(Warpper){
+        return class extends PureComponent{
+            componentWillMount(){
+            this.begintime=Date.now();
+        }
+        componentDidMount(){
+            this.endtime=Date.now();
+            const interval=this.begintime-this.endtime;
+            console.log(`home渲染时间     ${interval}`);
+        }
+        render(){
+            return<Warpper {...props}/>
+        }
+        }
+    }
+    class Home extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return(<div>
+                 Home
+                  </div>)
+        }
+    }
+    class Profile extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        render(){
+            return(<div>
+                   Profile
+                  </div>)
+        }
+    }
+    class App extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                count:0
+            }
+        }
+        render(){
+            return(<div><Home/><Profile/></div>)
+        }
+    }
+    ReactDOM.render(<App/>,document.getElementById("app"));
+    </script>
+</body>
+</html>
